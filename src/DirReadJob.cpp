@@ -77,12 +77,6 @@ void DirReadJob::finished()
 }
 
 
-void DirReadJob::childAdded( FileInfo *newChild )
-{
-    _tree->childAddedNotify( newChild );
-}
-
-
 void DirReadJob::deletingChild( FileInfo *deletedChild )
 {
     _tree->deletingChildNotify( deletedChild );
@@ -226,7 +220,6 @@ void LocalDirReadJob::startReading()
 			FileInfo *child = new FileInfo( entryName, &statInfo, _tree, _dir );
 			CHECK_NEW( child );
 			_dir->insertChild( child );
-			childAdded( child );
 		    }
 		}
 		else  // lstat() error
@@ -285,7 +278,6 @@ void LocalDirReadJob::finishReading( DirInfo * dir, DirReadState readState )
 void LocalDirReadJob::processSubDir( const QString & entryName, DirInfo * subDir )
 {
     _dir->insertChild( subDir );
-    childAdded( subDir );
 
     if ( ExcludeRules::instance()->match( fullName( entryName ), entryName ) )
     {
@@ -406,7 +398,6 @@ void LocalDirReadJob::handleLstatError( const QString & entryName )
     child->finalizeLocal();
     child->setReadState( DirError );
     _dir->insertChild( child );
-    childAdded( child );
 }
 
 
@@ -496,18 +487,10 @@ CacheReadJob::CacheReadJob( DirTree	  * tree,
 
 void CacheReadJob::init()
 {
-    if ( _reader )
+    if ( _reader && ! _reader->ok() )
     {
-	if ( _reader->ok() )
-	{
-	    connect( _reader,	SIGNAL( childAdded    ( FileInfo * ) ),
-		     this,	SLOT  ( slotChildAdded( FileInfo * ) ) );
-	}
-	else
-	{
-	    delete _reader;
-	    _reader = 0;
-	}
+        delete _reader;
+        _reader = 0;
     }
 }
 

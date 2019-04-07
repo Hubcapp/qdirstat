@@ -111,8 +111,6 @@ void DirTree::startReading( const QString & rawUrl )
 
     if ( item )
     {
-	childAddedNotify( item );
-
 	if ( item->isDirInfo() )
 	{
 	    addJob( new LocalDirReadJob( this, item->toDirInfo() ) );
@@ -218,15 +216,6 @@ void DirTree::slotFinished()
 {
     _isBusy = false;
     emit finished();
-}
-
-
-void DirTree::childAddedNotify( FileInfo * newChild )
-{
-    emit childAdded( newChild );
-
-    if ( newChild->dotEntry() )
-	emit childAdded( newChild->dotEntry() );
 }
 
 

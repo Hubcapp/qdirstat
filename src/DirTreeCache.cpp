@@ -476,8 +476,6 @@ void CacheReader::addItem()
 	if ( ! _toplevel )
 	    _toplevel = dir;
 
-	_tree->childAddedNotify( dir );
-
 	if ( dir != _toplevel )
 	{
 	    if ( ExcludeRules::instance()->match( dir->url(), dir->name() ) )
@@ -508,7 +506,6 @@ void CacheReader::addItem()
 					    mode, size, mtime,
 					    blocks, links );
 	    parent->insertChild( item );
-	    _tree->childAddedNotify( item );
 	}
 	else
 	{

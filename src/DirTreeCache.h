@@ -176,11 +176,6 @@ namespace QDirStat
     signals:
 
 	/**
-	 * Emitted when a child has been added.
-	 **/
-	void childAdded( FileInfo *newChild );
-
-	/**
 	 * Emitted when reading this cache is finished.
 	 **/
 	void finished();

@@ -185,14 +185,6 @@ namespace QDirStat
 	    { _crossFileSystems = doCross; }
 
 	/**
-	 * Notification that a child has been added.
-	 *
-	 * Directory read jobs are required to call this for each child added
-	 * so the tree can emit the corresponding childAdded() signal.
-	 **/
-	virtual void childAddedNotify( FileInfo *newChild );
-
-	/**
 	 * Notification that a child is about to be deleted.
 	 *
 	 * Directory read jobs are required to call this for each deleted child
@@ -261,11 +253,6 @@ namespace QDirStat
 
 
     signals:
-
-	/**
-	 * Emitted when a child has been added.
-	 **/
-	void childAdded( FileInfo * newChild );
 
 	/**
 	 * Emitted when the tree is about to be cleared.

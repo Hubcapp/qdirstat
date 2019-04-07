@@ -159,10 +159,7 @@ void DirInfo::reset()
     _summaryDirty    = true;
 
     if ( ! _dotEntry )
-    {
 	_dotEntry = new DirInfo( _tree, this, true );
-	_tree->childAddedNotify( _dotEntry );
-    }
 
     recalc();
     dropSortCache();
